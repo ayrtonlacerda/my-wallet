@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import "./globals.css";
@@ -14,6 +15,7 @@ import {
 import { Sidebar } from "@/components/ui/side-bar";
 
 export default function HomePage() {
+  console.log("teste log");
   return (
     <main className="px-4 py-2">
       <div className="px-4 py-2">
