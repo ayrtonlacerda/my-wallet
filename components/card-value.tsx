@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatCurrency } from "@/lib/currency";
 import { format, parseISO } from "date-fns";
 
 interface CardValueInterface {
@@ -28,11 +29,7 @@ export const CardValue = ({
     </CardHeader>
     <CardContent>
       <div className={`text-2xl font-bold ${colorMode[investmentMargin]}`}>
-        {new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-          currencyDisplay: "narrowSymbol",
-        }).format(value)}
+        {formatCurrency(value)}
       </div>
       {!!date && (
         <p className={`text-xs  text-muted-foreground`}>

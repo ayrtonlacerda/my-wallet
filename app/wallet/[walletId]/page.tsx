@@ -10,6 +10,7 @@ import { AssetsProps, ListAssets } from "@/components/list-assets";
 import { CardValue } from "@/components/card-value";
 
 const CRYPTO = {
+  id: 1,
   operation: "short",
   symbol: "BTC",
   name: "Bitcoin",
@@ -19,13 +20,20 @@ const CRYPTO = {
   total_current: 52000.36,
   total_buy: 50154.65,
   percentage: 0.86,
-  email: "m@example.com",
+  profit_loss: 2000.94,
 };
 
-export const assets: AssetsProps[] = [0, 0, 0, 0, 0, 0, 0, 0, 0].map((_) => ({
-  ...CRYPTO,
-  id: uuidv4(),
-}));
+export const assets: AssetsProps[] = [0, 0, 0, 0, 0, 0, 0, 0, 0].map(
+  (asset, index) => ({
+    ...CRYPTO,
+    operation: index % 2 === 0 ? "short" : "long",
+    profit_loss: index % 2 === 0 ? CRYPTO.profit_loss : CRYPTO.profit_loss * -1,
+    total_current:
+      index % 2 === 0 ? CRYPTO.total_current : CRYPTO.total_current * -1,
+    percentage: index % 2 === 0 ? CRYPTO.percentage : CRYPTO.percentage * -1,
+    id: uuidv4(),
+  })
+);
 
 interface WalletPage {
   params: {
@@ -35,14 +43,14 @@ interface WalletPage {
 
 export default function Wallet({ params }: WalletPage) {
   return (
-    <main className="h-screen col-span-4">
+    <main className="h-screen col-span-4 ">
       <div>
         <h1 className="mb-4 px-2 text-2xl font-semibold tracking-tight">
           Wallet Shorts
         </h1>
       </div>
 
-      <Tabs defaultValue="list" className="lg:col-span-4">
+      <Tabs defaultValue="list" className="lg:col-span-4 pb-8">
         <TabsList>
           <TabsTrigger value="list">Lista de Ativos</TabsTrigger>
           <TabsTrigger value="graph">Gráficos</TabsTrigger>
