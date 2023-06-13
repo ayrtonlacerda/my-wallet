@@ -1,17 +1,5 @@
-import {
-  Home,
-  LayoutGrid,
-  Library,
-  ListMusic,
-  Mic2,
-  Music,
-  Music2,
-  PlayCircle,
-  Radio,
-  User,
-  Wallet,
-} from "lucide-react";
-
+import { Home, Wallet } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -37,6 +25,8 @@ export function Sidebar({
   toggleThemeMode,
   themeMode,
 }: SidebarProps) {
+  const pathname = usePathname();
+  console.log("pathname -> ", pathname);
   return (
     <div className={cn("pb-12", className)}>
       <div className="flex h-screen justify-between flex-col">
@@ -48,7 +38,7 @@ export function Sidebar({
             <div className="space-y-1">
               <Link href="/">
                 <Button
-                  variant="secondary"
+                  variant={pathname === "/" ? "secondary" : "ghost"}
                   size="sm"
                   className="w-full justify-start"
                 >
@@ -67,7 +57,11 @@ export function Sidebar({
                 {wallets?.map((wallet, i) => (
                   <Link href={`/wallet/${wallet.id}`} key={`${wallet.id}-${i}`}>
                     <Button
-                      variant="ghost"
+                      variant={
+                        pathname === `/wallet/${wallet.id}`
+                          ? "secondary"
+                          : "ghost"
+                      }
                       size="sm"
                       className="w-full justify-start font-normal"
                     >
@@ -84,7 +78,7 @@ export function Sidebar({
           <p className="pr-2">{themeMode} mode</p>{" "}
           <Switch
             checked={themeMode === "dark"}
-            onCheckedChange={(value) => console.log(value)}
+            onCheckedChange={toggleThemeMode}
           />
         </div>
       </div>

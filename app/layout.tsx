@@ -3,6 +3,7 @@ import { Sidebar } from "@/components/ui/side-bar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { useThemeActions, useThemeMode } from "@/store/theme";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const WALLETS_MOCK = [
   {
@@ -29,15 +30,21 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={themeMode || "dark"}>
-      <div className="h-screen grid lg:grid-cols-5">
-        <Sidebar
-          className="hidden lg:block h-screen"
-          wallets={WALLETS_MOCK}
-          themeMode={themeMode}
-          toggleThemeMode={toggleThemeMode}
-        />
-        <div className="p-8 lg:col-span-4">{children}</div>
-      </div>
+      <body>
+        <div className="h-screen grid lg:grid-cols-5">
+          <aside className="fixed hidden  h-screen w-full   md:sticky md:block">
+            <Sidebar
+              className="fixed hidden lg:block h-screen"
+              wallets={WALLETS_MOCK}
+              themeMode={themeMode}
+              toggleThemeMode={toggleThemeMode}
+            />
+          </aside>
+          <ScrollArea className="lg:col-span-4">
+            <div className="p-8">{children}</div>
+          </ScrollArea>
+        </div>
+      </body>
     </html>
   );
 }
