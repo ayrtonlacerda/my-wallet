@@ -116,7 +116,7 @@ export const ListAssets = ({ assets }: { assets: AssetsProps[] }) => {
 };
 
 const columns: ColumnDef<AssetsProps>[] = [
-  {
+  /* {
     id: "select",
     header: ({ table }) => (
       <Checkbox
@@ -134,7 +134,7 @@ const columns: ColumnDef<AssetsProps>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
-  },
+  }, */
   {
     accessorKey: "operation",
     header: () => <div className="flex justify-center">Operação</div>,

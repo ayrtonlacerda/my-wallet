@@ -45,7 +45,7 @@ export default function Wallet({ params }: WalletPage) {
   return (
     <main className="h-screen col-span-4 ">
       <div>
-        <h1 className="mb-4 px-2 text-2xl font-semibold tracking-tight">
+        <h1 className="mb-4 px-2 text-3xl font-semibold tracking-tight">
           Wallet Shorts
         </h1>
       </div>
