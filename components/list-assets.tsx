@@ -32,6 +32,8 @@ import {
   TrendingDown,
   TrendingUp,
   Plus,
+  ChevronRight,
+  Coins,
 } from "lucide-react";
 import {
   Tooltip,
@@ -40,17 +42,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { formatCurrency } from "@/lib/currency";
+import { SheetAddAsset, sheetAddControl } from "./sheet-addasset";
 
 export type AssetsProps = {} & any;
 
-/* 
-.map((asset) => ({
-      ...asset,
-      total_buy: formatCurrency(asset.total_buy),
-      total_current: formatCurrency(asset.total_current),
-      profit_loss: formatCurrency(asset.profit_loss),
-      buy_value: formatCurrency(asset.buy_value),
-    })) */
 export const ListAssets = ({ assets }: { assets: AssetsProps[] }) => {
   const table = useReactTable({
     data: assets,
@@ -63,7 +58,7 @@ export const ListAssets = ({ assets }: { assets: AssetsProps[] }) => {
     <div className="lg:col-span-4 lg:border-l p-2 rounded-md border mt-6">
       <div className="flex flex-row  items-center justify-between m-2  mb-6">
         <Input className="w-2/5" placeholder="Search..." />
-        <Button variant="outline" onClick={() => console.log("yes")}>
+        <Button variant="outline" onClick={sheetAddControl.open}>
           Adicionar
         </Button>
       </div>
@@ -111,6 +106,7 @@ export const ListAssets = ({ assets }: { assets: AssetsProps[] }) => {
           )}
         </TableBody>
       </Table>
+      <SheetAddAsset />
     </div>
   );
 };
@@ -137,17 +133,25 @@ const columns: ColumnDef<AssetsProps>[] = [
   }, */
   {
     accessorKey: "operation",
-    header: () => <div className="flex justify-center">Operação</div>,
+    header: () => <div className="flex justify-center">Op.</div>,
     cell: ({ row }) => (
       <div className="flex justify-center">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              {row.getValue("operation") === "short" ? (
-                <TrendingDown className="text-rose-700" />
-              ) : (
-                <TrendingUp className="text-emerald-700" />
-              )}
+              <div
+                className={`py-1 px-2  ${
+                  row.getValue("operation") === "short"
+                    ? "bg-rose-700/[.2]"
+                    : "bg-emerald-700/[.2]"
+                } rounded-sm`}
+              >
+                {row.getValue("operation") === "short" ? (
+                  <TrendingDown className="text-rose-700" size={16} />
+                ) : (
+                  <TrendingUp className="text-emerald-700" size={16} />
+                )}
+              </div>
             </TooltipTrigger>
             <TooltipContent>{row.getValue("operation")}</TooltipContent>
           </Tooltip>
@@ -217,7 +221,7 @@ const columns: ColumnDef<AssetsProps>[] = [
     header: () => <div className="flex justify-center ">Profit/Loss</div>,
     cell: ({ row }) => (
       <div
-        className={`flex justify-center ${
+        className={`flex justify-center font-semibold ${
           Number(row.getValue("profit_loss")) > 0
             ? "text-emerald-400"
             : "text-rose-400"
@@ -232,7 +236,7 @@ const columns: ColumnDef<AssetsProps>[] = [
     header: () => <div className="flex justify-center">PNL</div>,
     cell: ({ row }) => (
       <div
-        className={`flex justify-center ${
+        className={`flex justify-center font-bold ${
           Number(row.getValue("percentage")) > 0
             ? "text-emerald-400"
             : "text-rose-400"

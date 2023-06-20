@@ -60,7 +60,7 @@ export default function RootLayout({
             />
           </aside>
           <ScrollArea className="lg:col-span-4">
-            <div className="p-8">{children}</div>
+            <div className="p-6">{children}</div>
           </ScrollArea>
           <DialogAddWallet open={open} toggleOpen={toggleOpen} />
         </div>
