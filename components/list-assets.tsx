@@ -28,7 +28,7 @@ import {
   MoreHorizontal,
   Trash,
   Eye,
-  Link,
+  Link as LinkIcon,
   TrendingDown,
   TrendingUp,
   Plus,
@@ -43,6 +43,8 @@ import {
 } from "@/components/ui/tooltip";
 import { formatCurrency } from "@/lib/currency";
 import { SheetAddAsset, sheetAddControl } from "./sheet-addasset";
+import { sheetDetailControl, SheetDetailAsset } from "./sheet-detail";
+import Link from "next/link";
 
 export type AssetsProps = {} & any;
 
@@ -107,6 +109,7 @@ export const ListAssets = ({ assets }: { assets: AssetsProps[] }) => {
         </TableBody>
       </Table>
       <SheetAddAsset />
+      <SheetDetailAsset />
     </div>
   );
 };
@@ -261,13 +264,20 @@ const columns: ColumnDef<AssetsProps>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+            <Link
+              href="https://www.coingecko.com/en/coins/bitcoin"
+              target={"_blank"}
+              rel={"noreferrer"}
             >
-              <Link size={16} className="mr-2" />
-              CoinGecko
-            </DropdownMenuItem>
-            <DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(payment.id)}
+              >
+                <LinkIcon size={16} className="mr-2" />
+                CoinGecko
+              </DropdownMenuItem>
+            </Link>
+
+            <DropdownMenuItem onClick={() => sheetDetailControl.open()}>
               <Eye size={16} className="mr-2" />
               Ver detalhes
             </DropdownMenuItem>
