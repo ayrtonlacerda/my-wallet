@@ -23,7 +23,7 @@ const CRYPTO = {
   profit_loss: 2000.94,
 };
 
-export const assets: AssetsProps[] = [0, 0, 0, 0, 0, 0, 0, 0, 0].map(
+const assets2: AssetsProps[] = [0, 0, 0, 0, 0, 0, 0, 0, 0].map(
   (asset, index) => ({
     ...CRYPTO,
     operation: index % 2 === 0 ? "short" : "long",
@@ -85,7 +85,7 @@ export default function Wallet({ params }: WalletPage) {
         </div>
 
         <TabsContent value="list">
-          <ListAssets assets={assets} />
+          <ListAssets assets={assets2} />
         </TabsContent>
 
         <TabsContent value="graph">

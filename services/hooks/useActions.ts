@@ -27,7 +27,7 @@ const subscribeActions = (actions: ActionsProps) => {
   });
 };
 
-export const action = (event: string, ...props) => {
+export const action = (event: string, ...props: any[]) => {
   const args = [...(props ? props : [])];
 
   subscribers.forEach(([filter, callback]) => {
